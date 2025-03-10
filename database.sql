@@ -1,0 +1,11 @@
+CREATE TABLE login (
+    email VARCHAR(255) PRIMARY KEY,
+    username VARCHAR(255) NOT NULL,
+    password VARCHAR(255) NOT NULL,
+    verified BOOLEAN DEFAULT FALSE
+);
+
+CREATE TABLE otp (
+    email VARCHAR(255) PRIMARY KEY,
+    otp_code VARCHAR(6) NOT NULL
+);

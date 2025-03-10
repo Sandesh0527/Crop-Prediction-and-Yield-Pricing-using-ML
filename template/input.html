@@ -1,0 +1,292 @@
+{% extends "template.html" %}
+
+    {%block style%}
+    <style>
+        body{
+            background-image: url('../static/inputbackground.jpg');
+        }
+        label {
+            font-size: large;
+            font-weight: 500;
+            font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+            color: white;
+        }   
+
+        .slideleft{
+            animation-name: slideleft;
+            animation-duration: 2s;
+            animation-timing-function:cubic-bezier(1, 0, 0, 1);
+        }
+        #slideup{
+            animation-name: slideup;
+            animation-duration: 2s;
+            animation-timing-function:cubic-bezier(1, 0, 0, 1);
+        }
+        .slideright{
+            animation-name: slideright;
+            animation-duration: 2s;
+            animation-timing-function:cubic-bezier(1, 0, 0, 1);
+        }
+
+        @keyframes slideleft{
+           0% {transform: translate(-100%); opacity: 0;}
+           90% {transform: translate(10%); opacity: 0.8;}
+           100% {transform: translate(0); opacity: 1;}
+        }
+
+        @keyframes slideup{
+            0% {transform: translateY(+100%) ; opacity: 0;}
+           100% {transform: translateY(0); opacity: 1;}
+        }
+        @keyframes slideright{
+            0% {transform: translate(+100%); opacity: 0;}
+           90% {transform: translate(-10%); opacity: 0.8;}
+           100% {transform: translate(0); opacity: 1;}
+        }
+    </style>
+    {%endblock%}
+    {% block code_block %}
+    
+    <div class = "container">
+
+<div  class = "container slideleft" style="text-align: center; color: chocolate; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif">
+        <h1>Crop Suggestion</h1>
+    </div>
+        <br>
+<div id = "">
+        <form action="/predict" method="POST"
+        oninput='rainfall.setCustomValidity((rainfall.value<200 || rainfall.value>1800) ? "rainfall must be in (200-1800)" : "");
+        ph.setCustomValidity((ph.value<1 || ph.value>9) ? "ph must be in (1-9)" : "");
+        temperature.setCustomValidity((temperature.value<5 || temperature.value>50) ? "Temperature must be in (5-50)" : "")'
+        >
+
+            <div class="form-group slideright" >
+                <label >Rainfall (200-1800)mm</label>
+                <input type="number" step="any" name="rainfall" class="form-control" required>
+            </div>
+
+            <div class="form-group slideleft">
+                <label >Temperature (5-50)°C</label>
+                <input type="number" step="any" name="temperature" class="form-control" required>
+            </div>
+
+            <div class="form-group slideright">
+                <label >PH (1-9)</label>
+                <input type="number" step="any" name="ph" class="form-control"  required>
+            </div>
+
+            <div class="form-group slideleft">
+                <label >State</label>
+                <select  name="state" class="form-control state1" id="st12" onclick="hun(this)" onchange = "myfun(this);" required>
+                     {% for state in states %}
+                        <option  id="id1{{loop.index}}" class = "teststate" type = 'text'  value ="{{state }}">{{ state }}</option>
+                {% endfor %}
+                </select>
+
+            </div>
+
+             <div class="form-group slideright">
+                <label >District</label>
+                <label >District</label>
+                <select name="district" class="form-control disti" id="st{{ districts }}" required>
+
+                </select>
+            </div>
+            <div class="form-group slideleft">
+                <label >Season</label>
+                 <select   name="season" class="form-control" id="st{{ season }}" >
+
+                     {% for season in seasons %}
+                     <option id="id3{{loop.index}}" value="{{season}}">{{ season }}</option>
+                {% endfor %}
+                </select>
+            </div>
+
+
+
+             <div class="form-group slideright">
+                <label >Area to cultivate (acre)</label>
+                <input type="number" step="any" name="area" class="form-control" required>
+            </div>
+
+            <div class="form-group slideleft" style="text-align: center;">
+                <input type="submit" onclick="myfun2(this);"  style = "width: 20%; font-size: large; font-weight: 500;" value="Predict" class="btn btn-success">
+            </div>
+
+        </form>
+    </div>
+
+ {% endblock %}
+</div>
+{% block body %}
+<script>
+
+
+    var ad = 0;
+    function hun(ssd){
+        console.log(ad +"hi")
+        if(ad == 0){
+            text = $("#st12 option:selected").text();
+        console.log(text);
+        if(text.length == 0){
+
+        }else {
+            $.ajax({
+                type: "POST",
+                url: '/index1',
+                data: {csrfmiddlewaretoken: '{{ csrf_token }}', text: text},
+                success: function callback(arr) {
+                    // console.log(arr);
+                }
+            });
+              $.ajax({
+            type: "POST",
+            url: '/index1',
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}', text: text},
+            success: function callback(arr) {
+                // console.log(arr);
+            }
+        });
+              mydistis();
+        }
+        }
+        ad++;
+    }
+        var text = "";
+    $(document).ready(function(){
+        // text = document.getElementById('st12').active.textContent;
+        var dd = localStorage.getItem('state')
+        if(dd != null) {
+            // $("#st12 select").val(dd);
+           var sel = document.getElementById('st12');
+            var opts = sel.options;
+          for (var opt, j = 0; opt = opts[j]; j++) {
+            if (opt.value == dd) {
+              sel.selectedIndex = j;
+              break;
+            }
+          }
+            text = dd;
+            console.log(text);
+            if (text.length == 0) {
+
+            } else {
+                $.ajax({
+                    type: "POST",
+                    url: '/index1',
+                    data: {csrfmiddlewaretoken: '{{ csrf_token }}', text: text},
+                    success: function callback(arr) {
+                        // console.log(arr);
+                    }
+                });
+                $.ajax({
+                    type: "POST",
+                    url: '/index1',
+                    data: {csrfmiddlewaretoken: '{{ csrf_token }}', text: text},
+                    success: function callback(arr) {
+                        // console.log(arr);
+                    }
+                });
+                mydistis();
+            }
+        }else{
+
+        }
+    });
+
+
+
+    function myfun(ssd) {
+        console.log('hiii');
+      //  setTimeout(() => {
+            var id1 = ssd[ssd.selectedIndex].id;
+        text = document.getElementById(id1).textContent;
+        $.ajax({
+            type: "POST",
+            url: '/index1',
+            data: {csrfmiddlewaretoken: '{{ csrf_token }}', text: text},
+            success: function callback(arr) {
+                // console.log(arr);
+            }
+        });
+     //   }, 1000);
+
+localStorage.setItem("state", text);
+mydistis(ssd)
+}
+
+$('.teststate').click(function(){
+    myfun(this);
+})
+
+
+var arr1 = [];
+function mydistis(){
+arr1 = [];
+               // setTimeout(() => {
+                    $(function() {
+
+          $.getJSON('/send', {
+          }, function(data) {
+
+            // for (var i in data.result){
+            //     arr1.push(i);
+            //     // console.log(i)
+            // }
+              //let innerHTML = ';'
+
+                      const myNode = document.querySelector(".disti");
+                    var child = myNode.lastElementChild;
+              while (child) {
+                myNode.removeChild(child);
+                child = myNode.lastElementChild;
+              }
+
+
+              var ff = data.result[text]
+              for (var j = 0; j <= ff.length - 1;j++) {
+
+
+                      var option1 = document.createElement('option');
+                      option1.id = 'id' + ff[j];
+                      option1.value = ff[j];
+                      option1.text = ff[j];
+                      option1.name = "district"
+                      // document.getElementsByClassName('disti').appendChild(option1);
+                      document.querySelector('.disti').appendChild(option1)
+                  }
+
+          });
+          return false;
+
+      });
+    console.log(arr1);
+    
+
+  //
+  //       const myNode = document.querySelector(".disti");
+  //       var child = myNode.lastElementChild;
+  // while (child) {
+  //   myNode.removeChild(child);
+  //   child = myNode.lastElementChild;
+  // }
+  //       for(var a in arr1){
+  //           // document.getElementsByClassName('disti').innerHTML += "<option id='id2"  + arr1[i] + "' value= '" + arr1[i] + "'> " + arr1[i] + "</option>";
+  //           // console.log(arr1[i])
+  //           var option1 = document.createElement('option');
+  //           option1.id = 'id' + arr1[a];
+  //           option1.value = arr1[a];
+  //           option1.text = arr1[a];
+  //
+  //           // document.getElementsByClassName('disti').appendChild(option1);
+  //           document.querySelector('.disti').appendChild(option1);
+  //       }
+  //               }, 2000);
+
+
+}
+
+
+</script>
+
+        {% endblock %}
