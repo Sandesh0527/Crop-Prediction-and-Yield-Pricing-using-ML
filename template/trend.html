@@ -1,0 +1,298 @@
+{% extends "template.html" %}
+
+
+{%block style%}
+<style>
+    table,th,td{
+        opacity: 1;
+        background-color: rgba(0, 0, 0, 0.05);
+    }
+    tr{
+        color:yellow;
+        font-weight: 600
+    }
+       h3 {
+        font-family: serif;
+        color: transparent;
+        animation: effect 2s linear infinite;
+    }
+        @keyframes effect {
+            0% {
+                background: linear-gradient(
+                        #70ff85, #00ff26);
+                -webkit-background-clip: text;
+            }
+            50% {
+                background: linear-gradient(
+                        #faff7a, #f6ff00);
+                -webkit-background-clip: text;
+            }
+            100% {
+                background: linear-gradient(
+                        #82f9ff, #00f2ff);
+                -webkit-background-clip: text;
+            }
+        }
+</style>
+{%endblock%}
+
+{% block code_block %}
+
+<div class="container-fluid" style="background-color: slateblue">
+
+
+
+    <div class="container" style="width:100%;height:100%">
+    <div class="text-center">
+        <h3>Top Five Monthly</h3>
+    </div>
+        <!--        <button>Crop</button>-->
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-6" style="margin-top:50px">
+                <div class="card" style="background-color: rgba(0, 0, 0, 0.2)">
+                    <div class="card-block" style="background-color: rgba(0, 0, 0, 0.2)">
+                        <div class="card-header" style="background-color: rgba(0, 0, 0, 0.2)">
+                            <b style="color:aqua"> Top Five Crops ( <span id = 'month1' style="color: greenyellow;"></span> )</b>
+                        </div>
+                        <div style="height:100%">
+                            <table class="table table table-striped table-condensed">
+                                <thead>
+                                    <tr>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Price (per Qtl.)</th>
+                                        <th>Change</th>
+                                    </tr>
+                                    </tr>
+                                </thead>
+
+
+                                <tbody id = 'dynamictr'>
+                                </tbody>
+                                
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-sm-12 col-md-6 col-lg-6" style="margin-top:50px">
+                <div class="card"  style="background-color: rgba(0, 0, 0, 0.2)">
+                    <div class="card-block"  style="background-color: rgba(0, 0, 0, 0.2)">
+                        <div class="card-header"  style="background-color: rgba(0, 0, 0, 0.2)">
+                            <b style="color:aqua"> Bottom Five Crops ( <span id = 'monthl1' style="color: greenyellow;"></span> )</b>
+                        </div>
+                        <div style="height:100%">
+                            <table class="table table table-striped table-condensed ">
+                                <thead>
+                                    <tr>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Price (per Qtl.)</th>
+                                        <th>Change</th>
+                                    </tr>
+                                    </tr>
+                                </thead>
+
+
+                                <tbody id = 'dynamictr1'>
+                                </tbody>
+                                
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    <div class="container" style="width:100%;height:100%">
+          <div class="text-center">
+        <h3>Top Five Current Month</h3>
+    </div>
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-6" style="margin-top:50px">
+                <div class="card" style="background-color: rgba(0, 0, 0, 0.2)">
+                    <div class="card-block" style="background-color: rgba(0, 0, 0, 0.2)">
+                        <div class="card-header" style="background-color: rgba(0, 0, 0, 0.2)">
+                            <b style="color:aqua">Top Five Crops (Current Month)</b>
+                        </div>
+                        <div style="height:100%">
+                            <table class="table table table-striped table-condensed ">
+                                <thead>
+                                    <tr>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>Name</th>
+                                        <th>Price (per Qtl.)</th>
+                                        <th>Change</th>
+                                    </tr>
+                                    </tr>
+                                </thead>
+
+
+                                <tbody>
+                                    {% for i in data1.top %}
+                                    <tr>
+                                        <th scope="row">{{loop.index}}</th>
+                                        <td>{{i[0]}}</td>
+                                        <td>₹{{i[1]}}</td>
+                                        <td class="valign-wrapper">{{i[2]}}% <img src="../static/gain-icon.png"
+                                                height="25" width="25"></td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-6" style="margin-top:50px">
+                <div class="card" style="background-color: rgba(0, 0, 0, 0.2)">
+                    <div class="card-block" style="background-color: rgba(0, 0, 0, 0.2)">
+                        <div class="card-header" style="background-color: rgba(0, 0, 0, 0.2)">
+                            <b style="color:aqua">Bottom Five Crops (Current Month)</b>
+                        </div>
+                        <table class="table table table-striped table-condensed ">
+                            <thead>
+                                <tr>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Price (per Qtl.)</th>
+                                    <th>Change</th>
+                                </tr>
+                                </tr>
+                            </thead>
+
+
+                            <tbody>
+                                {% for i in data1.bot %}
+                                <tr>
+                                    <th scope="row">{{loop.index}}</th>
+                                    <td>{{i[0]}}</td>
+                                    <td>₹{{i[1]}}</td>
+                                    <td class="valign-wrapper">{{i[2]}}% <img src="../static/loss-icon.png" height="25"
+                                            width="25"></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    
+    
+    <script>
+            var info = {{ data1.topyear| safe}};
+
+            
+            $(document).ready(() => {
+
+                for(var i in [0, 1, 2, 3, 4]){
+                    var j = ( i - '0')+ 1;
+                    document.getElementById('dynamictr').innerHTML += '<tr><th scope="row"> ' + j + '</th><td id = "crop' + i + '"></td><td id = "price' + i +  '"></td><td class="valign-wrapper" id = "change' + i + '"> <img src="../static/gain-icon.png" height="25" width="25"></td></tr>'
+                }
+                for(var i in [0, 1, 2, 3, 4]){
+                    var j = ( i - '0')+ 1;
+                    document.getElementById('dynamictr1').innerHTML += '<tr><th scope="row"> ' + j + ' </th><td id = "cropl' + i + '"></td><td id = "pricel' + i +  '"></td><td class="valign-wrapper" id = "changel' + i + '"> <img src="../static/gain-icon.png" height="25" width="25"></td></tr>'
+                }
+
+                permonth(info[0], 0);
+                permonthl(info[0], 0);
+
+            });
+
+            var len = info.length
+            var j = 0
+            setInterval(() => {
+                if (j > 11) {
+                    j = 0;
+                }
+                permonth(info[j], 1000);
+                permonthl(info[j], 1000)
+                j++;
+            }, 3000);
+
+            function permonth(info, tim) {
+
+                setTimeout(() => {
+                    var h = 0;
+                    var temp1 = 0, temp2 = 0, temp3 = 0;
+                    for (var i in info) {
+                        if (h <= 5 * 3) {
+                            if(i == 0)
+                                document.getElementById('month1').innerHTML = '<b>' + info[i] + '</b>';
+                            if(i % 3 == 1){
+                                document.getElementById('crop' + temp1).innerHTML = info[i]
+                                temp1++;
+                                if(temp1 > 5){ temp1 = 0}
+                            }
+                            if((i % 3 == 0 && i % 4 != 0) || (i % 12 == 0 && i != 0)){
+                                document.getElementById('price' + temp2).innerHTML = info[i]
+                                temp2++;
+                                if(temp2 > 5){ temp2 = 0}
+                            }
+                            if(i % 3 == 2){
+                                document.getElementById('change' + temp3).innerHTML = info[i] + '<img src="../static/gain-icon.png" height="25" width="25">';
+                                temp3++;
+                                if(temp3 > 5){ temp3 = 0}
+                            }
+
+
+                        } else {
+                            break;
+                        }
+                        h++;
+                    }
+                }, tim);
+
+            }
+
+            function permonthl(info, tim) {
+                console.log(info);
+                setTimeout(() => {
+                var h = 0;
+                var temp1 = 0, temp2 = 0, temp3 = 0;
+                document.getElementById('monthl1').innerHTML = '<b>' + info[0] + '</b>';
+                for (var i = 15; i < info.length; i++) {
+                        if(i % 3 == 1){
+                            document.getElementById('cropl' + temp1).innerHTML = info[i]
+                            temp1++;
+                            if(temp1 > 5){ temp1 = 0}
+                        }
+                        if((i % 3 == 0 && i % 4 != 0) || (i % 12 == 0 && i != 0 )){
+                            document.getElementById('pricel' + temp2).innerHTML = info[i]
+                            temp2++;
+                            if(temp2 > 5){ temp2 = 0}
+                        }
+                        if(i % 3 == 2){
+                            document.getElementById('changel' + temp3).innerHTML = info[i] + '<img src="../static/loss-icon.png" height="25" width="25">';
+                            temp3++;
+                            if(temp3 > 5){ temp3 = 0}
+                        }
+
+
+                    
+                }
+            }, tim);
+
+
+
+}
+
+    </script>
+
+    </div>
+</div>
+
+        {% endblock %}

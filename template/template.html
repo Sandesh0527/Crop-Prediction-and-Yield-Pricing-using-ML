@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Crop Suggestion</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no,">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!--Google fonts-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
+    <!--End google fonts-->
+    <!-- For Search box-->
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+        integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <!--End search box-->
+    <link rel="stylesheet" href="css/indes.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    
+    {% block style%}
+    
+    {% endblock %}
+</head>
+<body>
+    <!--Navbar -->
+    <div class="bs-example"
+    style="margin-top: 0%;margin-right: 0%;margin-left: 0%;margin-bottom: 0%;background: transparent">
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark" style="background-color: black">
+        <a href="/trend" class="navbar-brand">Crop Suggestion</a>
+        <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbarCollapse">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarCollapse">
+            <div class="navbar-nav">
+                <a href="/cropsuggest" class="nav-item nav-link active">Demo</a>
+                <a href="/index" class="nav-item nav-link active">Predict</a>
+                <a href="/stats" class="nav-item nav-link active">Statistics</a>
+                <a href="/trend" class="nav-item nav-link active">Trending</a>
+            </div>
+
+
+            <form class="form-inline ml-auto">
+<!--
+-->
+<!--                <button style="color: aqua" type="submit" class="btn btn-outline-dark">Search</button>-->
+            </form>
+        </div>
+    </nav>
+</div>
+<!--End Navbar-->
+
+
+
+
+
+
+        {% block code_block %}
+        {% endblock %}
+
+
+<!-- Latest compiled and minified JavaScript -->
+
+{% block body %}
+        {% endblock %}
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+</body>
+</html>

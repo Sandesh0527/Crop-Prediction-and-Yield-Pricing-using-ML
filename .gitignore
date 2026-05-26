@@ -1,0 +1,20 @@
+# Trained model files (too large for GitHub — run xgbt_n.py and RF_prod.py to generate)
+RF_Crop.pkl
+RF_model.h5
+
+# Local SQLite database
+crop_app.db
+
+# Python cache
+__pycache__/
+*.pyc
+*.pyo
+
+# Virtual environment
+venv/
+env/
+.venv/
+
+# IDE
+.vscode/
+.idea/

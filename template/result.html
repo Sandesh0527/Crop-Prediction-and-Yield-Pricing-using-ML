@@ -1,0 +1,404 @@
+{% extends "template.html" %}
+
+{% block code_block %}
+<style>
+    ul {
+        list-style: none;
+
+    }
+
+    ul li::before {
+        content: "\2021";
+        color: mediumblue;
+        font-weight: bold;
+        display: inline-block;
+        width: 1em;
+        margin-left: -1em;
+    }
+
+    h3 {
+        font-family: serif;
+        color: transparent;
+        animation: effect 2s linear infinite;
+    }
+
+    .slideleft {
+        animation-name: slideleft;
+        animation-duration: 2s;
+        animation-timing-function: ease-out;
+    }
+
+    .slideup {
+        animation-name: slideup;
+        animation-duration: 2s;
+        animation-timing-function: ease-out
+    }
+
+    .slidebottom {
+        animation-name: slidebottom;
+        animation-duration: 2s;
+        animation-timing-function: ease-out
+    }
+
+    .slideright {
+        animation-name: slideright;
+        animation-duration: 2s;
+        animation-timing-function: ease-out
+    }
+    .myid{
+        display: none;
+    }
+    .ch1{
+        font-family: serif;
+        color: transparent;
+        animation: effect 2s linear infinite;
+    }
+
+    @keyframes effect {
+        0% {
+            background: linear-gradient(
+                    #70ff85, #00ff26);
+            -webkit-background-clip: text;
+        }
+        50% {
+            background: linear-gradient(
+                    #faff7a, #f6ff00);
+            -webkit-background-clip: text;
+        }
+        100% {
+            background: linear-gradient(
+                    #82f9ff, #00f2ff);
+            -webkit-background-clip: text;
+        }
+    }
+
+
+    @keyframes slideleft {
+        0% {
+            transform: translate(-100%);
+            opacity: 0;
+        }
+        100% {
+            transform: translate(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideup {
+        0% {
+            transform: translateY(+100%);
+            opacity: 0;
+        }
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slidebottom {
+        0% {
+            transform: translateY(-100%);
+            opacity: 0;
+        }
+        100% {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @keyframes slideright {
+        0% {
+            transform: translate(+100%);
+            opacity: 0;
+        }
+        100% {
+            transform: translate(0);
+            opacity: 1;
+        }
+    }
+
+</style>
+<body style="background-color: darkorchid">
+<div class="text-center">
+        <h3>Most suitable Crop</h3>
+        <!--        <button>Crop</button>-->
+</div>
+<div class="container-fluid" style=" padding:5px; margin-top:5px">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-12 col-md-3 col-lg-3 slideleft">
+                <div class="card" style="height:100%">
+                    <div class="card-block" style="height:100%">
+                        <div class="card-image" style="height:100%">
+                            <img class="img-fluid" src="../static/images/{{result.crop[0]}}.jpg" style="height:100%"
+                                 width=100%>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-3 col-lg-3 slideup">
+                <div class="card" style="height:100%">
+                    <div class="card-block" style="height:100%">
+                        <div class="card" style="height:100%">
+                            <div class="card-header text-center bg-secondary text-white">
+                                <b>Crop Description</b>
+                            </div>
+
+                            <ul class="list-group list-group-flush">
+
+                                <li class="list-group-item list-group-item-secondary">{{ result.crop_des1[0][0] }}</li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-12 col-md-3 col-lg-3 slidebottom">
+                <div class="card" style="height:100%">
+                    <div class="card-block" style="height:100%">
+                        <div class="card" style="height:100%">
+                            <div class="card-header text-center bg-primary text-white">
+                                <b>Crop Suggestion</b>
+                            </div>
+                            <ul class="list-group list-group-flush">
+                                <li class="list-group-item list-group-item-primary">Crop Suitable:<b> {{ result.crop[0]
+                                    }}</b></li>
+                                <li class="list-group-item list-group-item-primary">Est. Production:<b> {{
+                                    result.yeild[0]
+                                    }} kg</b></li>
+                                <li class="list-group-item list-group-item-primary">Location:<b> {{ result.crop_d1[0][0]
+                                    }}</b></li>
+                                <li class="list-group-item list-group-item-primary">Season:<b> {{ result.crop_d2[0][1]
+                                    }}</b>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-12 col-md-3 col-lg-3 slideright">
+                <div class="card" style="height:100%">
+                    <div class="card-block" style="height:100%">
+                        <div class="card" style="height:100%">
+                            <div class="card-header text-center bg-info text-white">
+                                <b>Fertilizer Information</b>
+                            </div>
+
+                            <ul class="list-group list-group-flush">
+
+                                <li class="list-group-item list-group-item-info">Soil Type:<b> {{ result.crop_fr[0][0]}}</b></li>
+                                <li class="list-group-item list-group-item-info">Fert Type:<b> {{ result.crop_fr[0][1]}}</b></li>
+                                <li class="list-group-item list-group-item-info">Fert Ratio:<b> {{ result.crop_fr[0][2]}}</b></li>
+                                <li class="list-group-item list-group-item-info"><b></b></li>
+
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--end 1-->
+
+<div class="text-center" style="margin-top:2%">
+    <button type="button" class="ch1" id="ch2" onclick="myFun()">Click For More Recommendation</button>
+
+</div>
+
+    <div id="mydiv" class="myid">
+        <div class="container-fluid slideright" style=" padding:5px; margin-top:5px">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12 col-md-3 col-lg-3">
+                        <div class="card" style="height:100%">
+                            <div class="card-block" style="height:100%">
+                                <div class="card-image" style="height:100%">
+                                    <img class="img-fluid" src="../static/images/{{result.crop[1]}}.jpg"
+                                         style="height:100%"
+                                         width=100%>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-3 col-lg-3">
+                        <div class="card" style="height:100%">
+                            <div class="card-block" style="height:100%">
+                                <div class="card" style="height:100%">
+                                    <div class="card-header text-center bg-secondary text-white">
+                                        <b>Crop Description</b>
+                                    </div>
+
+                                    <ul class="list-group list-group-flush">
+
+                                        <li class="list-group-item list-group-item-secondary">{{ result.crop_des1[1][0]
+                                            }}
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-3 col-lg-3">
+                        <div class="card" style="height:100%">
+                            <div class="card-block" style="height:100%">
+                                <div class="card" style="height:100%">
+                                    <div class="card-header text-center bg-primary text-white">
+                                        <b>Crop Suggestion</b>
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item list-group-item-primary">Crop Suitable:<b> {{
+                                            result.crop[1]
+                                            }}</b></li>
+                                        <li class="list-group-item list-group-item-primary">Est. Production:<b> {{
+                                            result.yeild[1]
+                                            }} kg</b></li>
+                                        <li class="list-group-item list-group-item-primary">Location:<b> {{
+                                            result.crop_d1[0][0]
+                                            }}</b></li>
+                                        <li class="list-group-item list-group-item-primary">Season:<b> {{
+                                            result.crop_d2[0][1] }}</b>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-3 col-lg-3">
+                        <div class="card" style="height:100%">
+                            <div class="card-block" style="height:100%">
+                                <div class="card" style="height:100%">
+                                    <div class="card-header text-center bg-info text-white">
+                                        <b>Fertilizer Information</b>
+                                    </div>
+
+                                    <ul class="list-group list-group-flush">
+
+                                        <li class="list-group-item list-group-item-info">Soil Type:<b> {{ result.crop_fr[1][0]}}</b></li>
+                                        <li class="list-group-item list-group-item-info">Fert Type:<b> {{ result.crop_fr[1][1]}}</b></li>
+                                        <li class="list-group-item list-group-item-info">Fert Ratio:<b> {{ result.crop_fr[1][2]}}</b></li>
+                                        <li class="list-group-item list-group-item-info"><b></b></li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!--end 2-->
+        <div class="container-fluid slideleft" style=" padding:5px; margin-top:5px">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-sm-12 col-md-3 col-lg-3">
+                        <div class="card" style="height:100%">
+                            <div class="card-block" style="height:100%">
+                                <div class="card-image" style="height:100%">
+                                    <img class="img-fluid" src="../static/images/{{result.crop[2]}}.jpg"
+                                         style="height:100%"
+                                         width=100%>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-3 col-lg-3">
+                        <div class="card" style="height:100%">
+                            <div class="card-block" style="height:100%">
+                                <div class="card" style="height:100%">
+                                    <div class="card-header text-center bg-secondary text-white">
+                                        <b>Crop Description</b>
+                                    </div>
+
+                                    <ul class="list-group list-group-flush">
+
+                                        <li class="list-group-item list-group-item-secondary">{{ result.crop_des1[2][0]
+                                            }}
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-3 col-lg-3">
+                        <div class="card" style="height:100%">
+                            <div class="card-block" style="height:100%">
+                                <div class="card" style="height:100%">
+                                    <div class="card-header text-center bg-primary text-white">
+                                        <b>Crop Suggestion</b>
+                                    </div>
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item list-group-item-primary">Crop Suitable:<b> {{
+                                            result.crop[2]
+                                            }}</b></li>
+                                        <li class="list-group-item list-group-item-primary">Est. Production:<b> {{
+                                            result.yeild[2]
+                                            }} kg</b></li>
+                                        <li class="list-group-item list-group-item-primary">Location:<b> {{
+                                            result.crop_d1[2][0]
+                                            }}</b></li>
+                                        <li class="list-group-item list-group-item-primary">Season:<b> {{
+                                            result.crop_d2[2][1]
+                                            }}</b>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-3 col-lg-3">
+                        <div class="card" style="height:100%">
+                            <div class="card-block" style="height:100%">
+                                <div class="card" style="height:100%">
+                                    <div class="card-header text-center bg-info text-white">
+                                        <b>Fertilizer Information</b>
+                                    </div>
+
+                                    <ul class="list-group list-group-flush">
+
+                                        <li class="list-group-item list-group-item-info">Soil Type:<b> {{ result.crop_fr[2][0]}}</b></li>
+                                        <li class="list-group-item list-group-item-info">Fert Type:<b> {{ result.crop_fr[2][1]}}</b></li>
+                                        <li class="list-group-item list-group-item-info">Fert Ratio:<b> {{ result.crop_fr[2][2]}}</b></li>
+                                        <li class="list-group-item list-group-item-info"><b></b></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    b= 0;
+    function myFun() {
+        var y = document.getElementById("ch2");
+        y.style.display = 'none';
+        var x = document.getElementById("mydiv");
+        if(b==0){
+        x.style.display = "none"
+            }
+        if (x.style.display === "none") {
+            x.style.display = "block";
+
+        } else {
+            x.style.display = "none";
+
+        }
+        b++;
+    }
+</script>
+
+</body>
+{% endblock %}
